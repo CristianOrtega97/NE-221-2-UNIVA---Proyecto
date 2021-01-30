@@ -31,6 +31,7 @@
             <!--User Creation-->
             <div role="tabpanel" class="tab-pane fade" id="creation">
                 <form>
+
                     <div class="form-group">
                         <label for="lblPhotoAdd">Enter logo for company</label>
                         <input type="file" class="form-control-file" id="photoAdd">
@@ -71,7 +72,42 @@
             </div>
 
             <!-- User Modification-->
-            <div role="tabpanel" class="tab-pane fade" id="modify">2</div>
+            <div role="tabpanel" class="tab-pane fade" id="modify">
+                <form>
+                    <picture>
+                        <source srcset="imgs/logo.jpg" type="image/svg+xml">
+                        <img src="" class="img-fluid img-thumbnail w-25 p-3 mx-auto d-block" alt="LOGO">
+                    </picture>
+                    <div class="form-group">
+                      <label for="lblFirstName">First Name:</label>
+                      <input type="text" class="form-control" id="firstNameInput" placeholder="John">
+                    </div>
+                    <div class="form-group">
+                      <label for="lblSurname">Surname:</label>
+                      <input type="text" class="form-control" id="lastNameInput" placeholder="Johnson">
+                    </div>
+                    <div class="form-group">
+                        <label for="lblPasswordInput">Password</label>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Enter Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="lblPasswordInput2">Password</label>
+                        <input type="password" class="form-control" id="passwordInput2" placeholder="Confirm Password">
+                    </div>
+                    <div class="dropdown show">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Select a role for user
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="#">Administrator</a>
+                          <a class="dropdown-item" href="#">Customer</a>
+                          <a class="dropdown-item" href="#">Agent</a>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-primary btn-lg">Submit</button>
+                </form>
+            </div>
 
             <!--Delete User-->
             <div role="tabpanel" class="tab-pane fade" id="delete">3</div>
