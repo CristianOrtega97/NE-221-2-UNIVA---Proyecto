@@ -51,17 +51,18 @@
       $('#startDate').datepicker({
           uiLibrary: 'bootstrap4',
           iconsLibrary: 'fontawesome',
-          minDate: today,
-          maxDate: function () {
+          minDate: function () {
               return $('#endDate').val();
-          }
+          },
+          maxDate: today
       });
       $('#endDate').datepicker({
           uiLibrary: 'bootstrap4',
           iconsLibrary: 'fontawesome',
           minDate: function () {
               return $('#startDate').val();
-          }
+          },
+          maxDate:today
       });
     </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
