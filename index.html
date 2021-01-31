@@ -120,7 +120,34 @@
             </div>
 
             <!--Delete User-->
-            <div role="tabpanel" class="tab-pane fade" id="delete">3</div>
+            <div role="tabpanel" class="tab-pane fade" id="delete">
+                <form>
+                    <nav class="navbar navbar-light bg-light">
+                        <div class="container-fluid">
+                          <a class="navbar-brand">Search for Username</a>
+                          <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Enter username" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                          </form>
+                        </div>
+                      </nav>
+                    <br>
+                    <picture>
+                        <source srcset="imgs/logo.jpg" type="image/svg+xml">
+                        <img src="" class="img-fluid img-thumbnail w-25 p-3 mx-auto d-block" alt="LOGO">
+                    </picture>
+                    <div class="form-group">
+                      <label for="lblFirstName">First Name:</label>
+                      <input type="text" class="form-control" id="firstNameInput3" placeholder="John" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="lblSurname">Surname:</label>
+                      <input type="text" class="form-control" id="lastNameInput3" placeholder="Johnson" readonly>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-primary btn-lg">Delete</button>
+                </form>
+            </div>
         </div>
     </div>
         
