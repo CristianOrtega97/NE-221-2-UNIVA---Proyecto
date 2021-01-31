@@ -14,141 +14,23 @@
     <div class="container">
         <h1>Welcome to Lead Manager</h1>
         <hr>
-        <ul class="nav nav-tabs justify-content-center">
-            <li class="nav-item">
-                <a href="#creation" class="nav-link active" role="tab" data-toggle="tab">User Creation</a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#modify" class="nav-link" role="tab" data-toggle="tab">Modify User</a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#delete" class="nav-link" role="tab" data-toggle="tab">Delete User</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <!--User Creation-->
-            <div role="tabpanel" class="tab-pane fade" id="creation">
-                <form>
-
-                    <div class="form-group">
-                        <label for="lblPhotoAdd">Enter logo for company</label>
-                        <input type="file" class="form-control-file" id="photoAdd">
-                    </div>
-                    <div class="form-group">
-                        <label for="lblUsername">Username:</label>
-                        <input type="text" class="form-control" id="usernameInput" placeholder="Enter the username">
-                    </div>
-                    <div class="form-group">
-                      <label for="lblFirstName">First Name:</label>
-                      <input type="text" class="form-control" id="firstNameInput" placeholder="Enter the Firstname">
-                    </div>
-                    <div class="form-group">
-                      <label for="lblSurname">Surname:</label>
-                      <input type="text" class="form-control" id="lastNameInput" placeholder="Enter the Surname">
-                    </div>
-                    <div class="form-group">
-                        <label for="lblPasswordInput">Password</label>
-                        <input type="password" class="form-control" id="passwordInput" placeholder="Enter Password">
-                    </div>
-                    <div class="form-group">
-                        <label for="lblPasswordInput2">Password</label>
-                        <input type="password" class="form-control" id="passwordInput2" placeholder="Confirm Password">
-                    </div>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Select a role for user
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#">Administrator</a>
-                          <a class="dropdown-item" href="#">Customer</a>
-                          <a class="dropdown-item" href="#">Agent</a>
-                        </div>
-                    </div>
-                    <br>
-                    <button type="button" class="btn btn-primary btn-lg">Submit</button>
-                </form>
+        <form>
+            <div class="mb-3">
+              <label for="lblUsername" class="form-label">Username: </label>
+              <input type="text" class="form-control" id="inputUsername" placeholder="Enter your username">
             </div>
-
-            <!-- User Modification-->
-            <div role="tabpanel" class="tab-pane fade" id="modify">
-                <form>
-                    <nav class="navbar navbar-light bg-light">
-                        <div class="container-fluid">
-                          <a class="navbar-brand">Search for Username</a>
-                          <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Enter username" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                          </form>
-                        </div>
-                      </nav>
-                    <br>
-                    <picture>
-                        <source srcset="imgs/logo.jpg" type="image/svg+xml">
-                        <img src="" class="img-fluid img-thumbnail w-25 p-3 mx-auto d-block" alt="LOGO">
-                    </picture>
-                    <div class="form-group">
-                      <label for="lblFirstName">First Name:</label>
-                      <input type="text" class="form-control" id="firstNameInput2" placeholder="John">
-                    </div>
-                    <div class="form-group">
-                      <label for="lblSurname">Surname:</label>
-                      <input type="text" class="form-control" id="lastNameInput2" placeholder="Johnson">
-                    </div>
-                    <div class="form-group">
-                        <label for="lblPasswordInput3">Password</label>
-                        <input type="password" class="form-control" id="passwordInput3" placeholder="Enter Password">
-                    </div>
-                    <div class="form-group">
-                        <label for="lblPasswordInput4">Password</label>
-                        <input type="password" class="form-control" id="passwordInput4" placeholder="Confirm Password">
-                    </div>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Select a role for user
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#">Administrator</a>
-                          <a class="dropdown-item" href="#">Customer</a>
-                          <a class="dropdown-item" href="#">Agent</a>
-                        </div>
-                    </div>
-                    <br>
-                    <button type="button" class="btn btn-primary btn-lg">Submit</button>
-                </form>
+            <div class="mb-3">
+              <label for="lblPassword" class="form-label">Password</label>
+              <input type="password" class="form-control" id="inputPassword" placeholder="Enter your password">
             </div>
-
-            <!--Delete User-->
-            <div role="tabpanel" class="tab-pane fade" id="delete">
-                <form>
-                    <nav class="navbar navbar-light bg-light">
-                        <div class="container-fluid">
-                          <a class="navbar-brand">Search for Username</a>
-                          <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Enter username" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                          </form>
-                        </div>
-                      </nav>
-                    <br>
-                    <picture>
-                        <source srcset="imgs/logo.jpg" type="image/svg+xml">
-                        <img src="" class="img-fluid img-thumbnail w-25 p-3 mx-auto d-block" alt="LOGO">
-                    </picture>
-                    <div class="form-group">
-                      <label for="lblFirstName">First Name:</label>
-                      <input type="text" class="form-control" id="firstNameInput3" placeholder="John" readonly>
-                    </div>
-                    <div class="form-group">
-                      <label for="lblSurname">Surname:</label>
-                      <input type="text" class="form-control" id="lastNameInput3" placeholder="Johnson" readonly>
-                    </div>
-                    <br>
-                    <button type="button" class="btn btn-primary btn-lg">Delete</button>
-                </form>
-            </div>
-        </div>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> For password reset <strong>contact @Admin</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <button type="submit" class="btn btn-primary">Log-in</button>
+          </form>
     </div>
         
 
