@@ -29,6 +29,7 @@ CREATE TABLE `leadmanager`.`lead`
   `last_name` VARCHAR(100) NOT NULL ,
   `phone` INT NOT NULL ,
   `insurance` BOOLEAN NOT NULL DEFAULT TRUE ,
+  `date` DATE NOT NULL,
   `company_id` INT NOT NULL,
   `is_active` BOOLEAN NOT NULL DEFAULT TRUE ,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,
@@ -39,11 +40,11 @@ CREATE TABLE `leadmanager`.`lead`
 ALTER TABLE `lead` ADD FOREIGN KEY (`company_id`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- Insert Lead
-INSERT INTO `lead` (`id`, `first_name`, `last_name`, `phone`, `insurance`, `company_id`, `is_active`, `created_at`, `updated_at`)
-VALUES (NULL, 'John', 'Johnson', '1112223344', '1', '1', '1', current_timestamp(), NULL);
+INSERT INTO `lead` (`id`, `first_name`, `last_name`, `phone`, `insurance`, `date`, `company_id`, `is_active`, `created_at`, `updated_at`)
+VALUES (NULL, 'John', 'Johnson', '1112223344', '1', '2021/03/30','1', '1', current_timestamp(), NULL);
 
-INSERT INTO `lead` (`id`, `first_name`, `last_name`, `phone`, `insurance`, `company_id`, `is_active`, `created_at`, `updated_at`)
-VALUES (NULL, 'Juan', 'Perez', '1112223344', '1', '4', '1', current_timestamp(), NULL);
+INSERT INTO `lead` (`id`, `first_name`, `last_name`, `phone`, `insurance`, `date`, `company_id`, `is_active`, `created_at`, `updated_at`)
+VALUES (NULL, 'Juan', 'Perez', '1112223344', '1','2021/03/30', '4', '1', current_timestamp(), NULL);
 
 -- VIEW FOR LEADS
 CREATE VIEW lead_view
@@ -52,6 +53,7 @@ SELECT lead.id as 'id',
 		lead.first_name as 'first_name',
         lead.last_name as 'last_name',
         lead.phone as 'phone',
+        lead.date as 'date',
         lead.insurance as 'insurance',
         lead.is_active as 'is_active',
         user.name AS 'company_name'
