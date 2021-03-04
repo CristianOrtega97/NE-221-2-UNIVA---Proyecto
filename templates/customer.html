@@ -35,52 +35,45 @@
     </div>
     <hr>
     <div class="container">
-        <div class="row justify-content-md-center">
-          <div class="col">
-            Start Date: <input id="startDate" width="276" />
+        <form action="/read_leads" method="POST">
+          <div class="row justify-content-md-center">
+            <div class="col">
+              Date: <input id="getDate" width="276" name='date' placeholder="YYYY/MM/DD"/>
+              <br>
+            </div>
             <br>
-            End Date: <input id="endDate" width="276" />
+            <div class="col p-5">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
           </div>
-          <br>
-          <div class="col p-5">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </div>
+        </form>
     </div>
     <br>
     <table class="table">
       <thead class="thead-light">
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Phone</th>
           <th scope="col">Insurance</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark Martinez</td>
-          <td>555-555-5555</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob Torres</td>
-          <td>444-444-4444</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        {% for item in data %}
+          <tr>
+            <td>{{item[1]}} {{item[2]}}</td>
+            <td>{{item[3]}}</td>
+            {% if item[5] == 1 %}
+              <td>Yes</td>
+            {% else %}
+              <td>No</td>
+            {% endif %}
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
 
     <!-- Optional JavaScript -->
-    <script>
+    <!-- <script>
       var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
       $('#startDate').datepicker({
           uiLibrary: 'bootstrap4',
@@ -98,7 +91,8 @@
           },
           maxDate:today
       });
-    </script>
+    </script> -->
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
