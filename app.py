@@ -36,5 +36,34 @@ def read_leads():
 def login():
     return render_template('index.html')
 
+@app.route('/login_auth', methods=['POST'])
+def login_auth():
+    if request.method == 'POST':
+        user_name = request.form['user_name']
+        password = request.form['password']
+        my_cursor = mysql.connection.cursor()
+        my_cursor.execute("SELECT * FROM user_view WHERE user_name = '" + user_name + "'")
+        data = my_cursor.fetchall()
+        my_cursor.close()
+        if len(data) > 0:
+            if data[0][2] == user_name:
+                if data[0][3] == password:
+                    if data[0][4] == 1:
+                        print("Company")
+                        return render_template('customer.html')
+                    elif data[0][4] == 2:
+                        return render_template('agent.html')
+                    else:
+                        return render_template('admin.html')
+                else:
+                    auth = 0
+                    return render_template('index.html',auth = auth)
+            else:
+                auth = 0
+                return render_template('index.html',auth = auth)
+        else:
+            auth = 0
+            return render_template('index.html',auth = auth)
+
 if __name__ == '__main__':
     app.run(debug=True)
