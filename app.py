@@ -16,7 +16,7 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    return 'Hello World'
+    return render_template('index.html')
  
 @app.route('/customer')
 def customer():
@@ -31,10 +31,6 @@ def read_leads():
         data = my_cursor.fetchall()
         my_cursor.close()
         return render_template('customer.html', data = data)
-        
-@app.route('/login')
-def login():
-    return render_template('index.html')
 
 @app.route('/login_auth', methods=['POST'])
 def login_auth():
