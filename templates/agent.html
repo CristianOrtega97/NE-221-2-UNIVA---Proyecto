@@ -42,19 +42,19 @@
             <form method="POST" action="{{ url_for('agent') }}">
               <div class="mb-3">
                 <label for="lblFirstName" class="form-label">First Name: </label>
-                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter First Name">
+                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter First Name" required>
               </div>
               <div class="mb-3">
                   <label for="lblUsername" class="form-label">Surname: </label>
-                  <input type="text" class="form-control" id="inputSurname" name="inputSurname" placeholder="Enter Surname">
+                  <input type="text" class="form-control" id="inputSurname" name="inputSurname" placeholder="Enter Surname" required>
               </div>
               <div class="mb-3">
                   <label for="lblPhone" class="form-label">Phone: </label>
-                  <input type="text" class="form-control" id="inputPhone" name="inputPhone" placeholder="Enter phone number">
+                  <input type="text" class="form-control" id="inputPhone" name="inputPhone" placeholder="Enter phone number" required>
               </div>
               <div class="mb-3">
                 <label for="lblDate" class="form-label">Date: </label>
-                <input type="text" class="form-control" id="inputDate" name='inputDate' placeholder="YYYY/MM/DD"/>
+                <input type="text" class="form-control" id="inputDate" name='inputDate' placeholder="YYYY/MM/DD"/ required>
               </div>
               <br>
               <div class="dropdown show">

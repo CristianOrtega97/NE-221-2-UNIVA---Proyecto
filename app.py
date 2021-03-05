@@ -22,6 +22,43 @@ def index():
 def customer():
     return render_template('customer.html')
 
+@app.route('/administrator')
+def administrator():
+    return render_template('administrator.html')
+
+@app.route('/delete_user',methods=['GET','POST'])
+def delete_user():
+    if request.method == 'POST':
+        user_name = request.form['user_name']
+        my_cursor = mysql.connection.cursor()
+        my_cursor.execute("SELECT * FROM user_view WHERE user_name = '" + user_name + "'")
+        data = my_cursor.fetchall()
+        my_cursor.close()
+        if len(data) > 0:
+            #User exists
+            user_name = data[0][2]
+            found = 1
+            return render_template('/administrator.html',found = found, user_name = user_name)
+        else:
+            #User doesn't exist
+            found = 0
+            return render_template('/administrator.html',found = found)
+
+@app.route('/delete_db',methods=['GET','POST'])
+def delete_db():
+    if request.method == 'POST':
+        user_name = request.values.get('user_name')
+        my_cursor = mysql.connection.cursor()
+        my_cursor.execute("UPDATE user SET `is_active` = 0 WHERE user_name = '" + user_name + "'")
+        my_cursor.connection.commit()
+        my_cursor.close()
+        return render_template('administrator.html')
+
+@app.route('/new_user',methods=['POST'])
+def new_user():
+    pass
+
+
 @app.route('/agent', methods=['GET','POST'])
 def agent():
     #Agent
@@ -50,7 +87,6 @@ def agent():
     my_cursor.close()
     return render_template('agent.html',campaigns = campaigns)
     
-
 @app.route('/read_leads', methods=['POST'])
 def read_leads():
     if request.method == 'POST':
@@ -89,8 +125,8 @@ def login_auth():
                         company_name =  str(data[0][1])
                         return render_template('agent.html', campaigns = campaigns,company_name = company_name)
                     else:
-                        #Admin
-                        return render_template('admin.html')
+                        #Administrator
+                        return render_template('administrator.html')
                 else:
                     auth = 0
                     return render_template('index.html',auth = auth)

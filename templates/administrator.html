@@ -54,19 +54,19 @@
                         <form>
                             <div class="form-group">
                                 <label for="lblUsername">Username:</label>
-                                <input type="text" class="form-control" id="usernameInput" placeholder="Enter the username">
+                                <input type="text" class="form-control" id="usernameInput" placeholder="Enter the username" required>
                             </div>
                             <div class="form-group">
                               <label for="lblName">Name:</label>
-                              <input type="text" class="form-control" id="nameInput" placeholder="Enter the company's name/ user's full name">
+                              <input type="text" class="form-control" id="nameInput" placeholder="Enter the company's name/ user's full name" required>
                             </div>
                             <div class="form-group">
                                 <label for="lblPasswordInput">Password</label>
-                                <input type="password" class="form-control" id="passwordInput" placeholder="Enter Password">
+                                <input type="password" class="form-control" id="passwordInput" placeholder="Enter Password" required>
                             </div>
                             <div class="form-group">
-                                <label for="lblPasswordInput2">Password</label>
-                                <input type="password" class="form-control" id="passwordInput2" placeholder="Confirm Password">
+                                <label for="lblPasswordInput2">Confirm Password</label>
+                                <input type="password" class="form-control" id="passwordInput2" placeholder="Confirm Password"required>
                             </div>
                             <div class="dropdown show">
                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -98,15 +98,15 @@
                             <br>
                             <div class="form-group">
                               <label for="lblName2">Name:</label>
-                              <input type="text" class="form-control" id="nameInput2" placeholder="John Company">
+                              <input type="text" class="form-control" id="nameInput2" placeholder="John Company" required>
                             </div>
                             <div class="form-group">
                                 <label for="lblPasswordInput3">Password</label>
-                                <input type="password" class="form-control" id="passwordInput3" placeholder="Enter Password">
+                                <input type="password" class="form-control" id="passwordInput3" placeholder="Enter Password" required>
                             </div>
                             <div class="form-group">
                                 <label for="lblPasswordInput4">Password</label>
-                                <input type="password" class="form-control" id="passwordInput4" placeholder="Confirm Password">
+                                <input type="password" class="form-control" id="passwordInput4" placeholder="Confirm Password" required>
                             </div>
                             <div class="dropdown show">
                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -125,24 +125,46 @@
         
                     <!--Delete User-->
                     <div role="tabpanel" class="tab-pane fade" id="delete">
-                        <form>
+                        <form method="POST" action="{{ url_for('delete_user') }}">
                             <nav class="navbar navbar-light bg-light">
                                 <div class="container-fluid">
                                   <a class="navbar-brand">Search for Username</a>
-                                  <form class="d-flex">
-                                    <input class="form-control me-2" type="search" placeholder="Enter username" aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Search</button>
-                                  </form>
+                                    {% if not found %}
+                                      <input class="form-control me-2" type="search" name="user_name" placeholder="Enter username" required>
+                                      <button type="submit" class="btn btn-primary">Search</button>
+                                    {% else %}
+                                      {% if found == 0 %}
+                                        <input class="form-control me-2" type="search" name="user_name" placeholder="Enter username" required>
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                      {% else %}
+                                        <input class="form-control me-2" type="search" name="user_name" value="{{user_name}}" required>
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                      {% endif %}
+                                    {% endif %}
                                 </div>
                               </nav>
-                            <br>
-                            <div class="form-group">
-                              <label for="lblName3">Name:</label>
-                              <input type="text" class="form-control" id="nameInput3" placeholder="Here goes the company/user's name" readonly>
-                            </div>
-                            <br>
-                            <button type="button" class="btn btn-primary btn-lg">Delete</button>
+                            {% if found == 0 %}
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>User was </strong> not found <strong>, try again</strong>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                            {% endif %}
                         </form>
+                            <br>
+                              <div class="form-group">
+                                <form action="/delete_db" method="POST">
+                                <label for="lblName3">Name:</label>
+                                {% if found == 1 %}
+                                  <input name='user_name' type="text" class="form-control" id="nameInput3" value="{{user_name}}" readonly>
+                                {% else %}
+                                  <input type="text" class="form-control" id="nameInput3" placeholder="Here goes the company/user's name" readonly>
+                                {% endif %}
+                                <br>
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                                </form>
+                              </div>
                 </div>
               </div>
             </div>
