@@ -85,36 +85,51 @@ def delete_db():
         deleted = 1
         return render_template('administrator.html',deleted = deleted ,user_name = user_name)
 
-@app.route('/new_user',methods=['post'])
+@app.route('/new_user',methods=['POST'])
 def new_user():
     user_name = request.values.get('user_name')
     name = request.values.get('name')
     password = request.values.get('password')
-    password_confirm = request.values.get('password2')
+    password2 = request.values.get('password2')
     input_role = request.values.get('input_role')
     if request.method == 'POST':
         my_cursor = mysql.connection.cursor()
         my_cursor.execute("SELECT * FROM `user_view` WHERE user_name = '" + str(user_name) + "'")
         data = my_cursor.fetchall()
-        print("QUERY: " + "SELECT * FROM `user_view` WHERE user_name = '" + str(user_name) + "'")
-        print("DATA: ",data)
         my_cursor.close()
         if len(data) > 0:
-            print("USER FOUND")
-            my_cursor = mysql.connection.cursor()
-            query = "UPDATE user SET `password` = '" + str(password) +"', `role`= " + str(input_role) + ",`name` = '" + str(name) +"', `user_name` = '" + str(user_name) + "',`is_active` = 1 WHERE id = " + str(data[0][0])
-            my_cursor.execute(query)
-            my_cursor.connection.commit()
-            my_cursor.close()
-            create = 1
-            return render_template('administrator.html',create = create)
+            if data[0][5] == 0:
+                if password == password2:
+                    my_cursor = mysql.connection.cursor()
+                    query = "UPDATE user SET `password` = '" + str(password) +"', `role`= " + str(input_role) + ",`name` = '" + str(name) +"', `user_name` = '" + str(user_name) + "',`is_active` = 1 WHERE id = " + str(data[0][0])
+                    my_cursor.execute(query)
+                    my_cursor.connection.commit()
+                    my_cursor.close()
+                    create = 1
+                    return render_template('administrator.html',create = create)
+                else:
+                    password = 1
+                    return render_template('administrator.html',password = password) 
+            else:
+                active = 1
+                return render_template('administrator.html',active = active) 
         else:
-            # my_cursor.execute("INSERT INTO `lead` (`id`, `first_name`, `last_name`, `phone`, `insurance`, `date`, `company_id`, `is_active`, `created_at`, `updated_at`)  VALUES(NULL,'"+str(inputName)+"','"+str(inputSurname)+"',"+str(inputPhone)+","+str(inputInsurance) +",'"+str(inputDate)+"'," + str(inputCampaign)+", '1', current_timestamp(), current_timestamp())")
-            # my_cursor.connection.commit()
-            # my_cursor.close()
-            # create = 2
-            print("ERROR")
-            return render_template('administrator.html')#,create = create)
+            if password == password2:
+                my_cursor = mysql.connection.cursor()
+                query = "INSERT INTO `user` (`id`, `name`, `user_name`, `password`, `role`, `is_active`, `created_at`, `updated_at`)  VALUES(NULL,'"+str(name)+"','"+str(user_name)+"','"+str(password)+"',"+str(input_role) +","+" 1, current_timestamp(), current_timestamp())"
+                print("QUERY: " + query)
+                my_cursor.execute(query)
+                my_cursor.connection.commit()
+                my_cursor.close()
+                # my_cursor.execute("INSERT INTO `lead` (`id`, `first_name`, `last_name`, `phone`, `insurance`, `date`, `company_id`, `is_active`, `created_at`, `updated_at`)  VALUES(NULL,'"+str(inputName)+"','"+str(inputSurname)+"',"+str(inputPhone)+","+str(inputInsurance) +",'"+str(inputDate)+"'," + str(inputCampaign)+", '1', current_timestamp(), current_timestamp())")
+                # my_cursor.connection.commit()
+                # my_cursor.close()
+                # create = 2
+                create = 2
+                return render_template('administrator.html',create = create)
+            else:
+                password = 1
+                return render_template('administrator.html',password = password)
 
 @app.route('/agent', methods=['GET','POST'])
 def agent():
