@@ -16,7 +16,7 @@
         <div class="col-4">
           <picture>
               <source srcset="" type="image/svg+xml">
-              <img src="/logos/lead_logo.JPG" class="img-fluid img-thumbnail w-75 p-3 mx-auto d-block" alt="LOGO">
+              <img src="{{ url_for('static', filename='logo.jpg') }}" class="img-fluid img-thumbnail w-75 p-3 mx-auto d-block" alt="LOGO">
           </picture>
         </div>
         <div class="col-7">
@@ -37,7 +37,7 @@
                 <input type="password" class="form-control" id="inputPassword" placeholder="Enter your password" name='password' required>
               </div>
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                  <strong>Holy guacamole!</strong> For password reset <strong>contact @Admin</strong>
+                  <strong> For password reset contact @Admin</strong>
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>

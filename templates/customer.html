@@ -23,7 +23,7 @@
         <div class="col-4">
           <picture>
               <source srcset="" type="image/svg+xml">
-              <img src="/logos/lead_logo.JPG" class="img-fluid img-thumbnail w-75 p-3 mx-auto d-block" alt="LOGO">
+              <img src="{{ url_for('static', filename='logo.jpg') }}" class="img-fluid img-thumbnail w-75 p-3 mx-auto d-block" alt="LOGO">
           </picture>
         </div>
         <div class="col-6">
@@ -31,9 +31,11 @@
         </div>
         <form action="/">
           <div class="col-2">
+            <br>
             <button>Logout</button>
           </div>
         </form>
+      </div>
     </div>
     <hr>
     <div class="container">
@@ -44,16 +46,14 @@
               <input name='company_name' value="{{company_name}}" type="text" class="form-control" id="CompanyName" placeholder="{{company_name}}" readonly>  
             </div>
           </div>
-          <div class="row justify-content-md-center">
-            <div class="mb-3">
-              <label for="lblDate" class="form-label">Date: </label>
-              <input type="text" class="form-control" id="inputDate" name='date' placeholder="YYYY/MM/DD"/>
+          <br>
+          <div class="row justify-content-md-left">
+            <div class="form-group row">
+              <div class="col-11">
+              <input class="form-control" type="date" value="2021-05-19" id="inputDate" name='date'>
+              </div>
             </div>
-            <br>
-            <div class="col p-5">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-          </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
     <br>

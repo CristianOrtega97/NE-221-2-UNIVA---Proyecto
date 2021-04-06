@@ -16,7 +16,7 @@
         <div class="col-4">
           <picture>
               <source srcset="" type="image/svg+xml">
-              <img src="/logos/lead_logo.JPG" class="img-fluid img-thumbnail w-75 p-3 mx-auto d-block" alt="LOGO">
+              <img src="{{ url_for('static', filename='logo.jpg') }}" class="img-fluid img-thumbnail w-75 p-3 mx-auto d-block" alt="LOGO">
           </picture>
         </div>
         <div class="col-6">
@@ -24,9 +24,11 @@
         </div>
         <form action="/">
           <div class="col-2">
+            <br>
             <button>Logout</button>
           </div>
         </form>
+      </div>
     </div>
     <hr>
     <div class="container">
@@ -34,7 +36,7 @@
           <div class="col">
             <ul class="nav nav-tabs justify-content-center">
               <li class="nav-item">
-                  <a href="#creation" class="nav-link active" role="tab" data-toggle="tab">User Creation</a>
+                  <a href="#creation" class="nav-link active" role="tab" data-toggle="tab">User/Campaign Creation</a>
               </li>
   
               <li class="nav-item">
@@ -49,83 +51,182 @@
               <div class="row justify-content-md-center">
                 <div class="col-5">
                   <div class="tab-content">
+
                     <!--User Creation-->
                     <div role="tabpanel" class="tab-pane fade" id="creation">
-                        <form>
+                      <br>
+                        <form class="/new_user" method="POST">
+                            {% if create == 1%}
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>User was deleted previously, it's now active</strong>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                            {% elif create == 2%}
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>User was created successfuly</strong>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                            {% endif %}
                             <div class="form-group">
                                 <label for="lblUsername">Username:</label>
-                                <input type="text" class="form-control" id="usernameInput" placeholder="Enter the username" required>
+                                <input type="text" class="form-control" name="username" placeholder="Enter the username" required>
                             </div>
                             <div class="form-group">
                               <label for="lblName">Name:</label>
-                              <input type="text" class="form-control" id="nameInput" placeholder="Enter the company's name/ user's full name" required>
+                              <input type="text" class="form-control" name="name" placeholder="Enter the company's name/ user's full name" required>
                             </div>
                             <div class="form-group">
                                 <label for="lblPasswordInput">Password</label>
-                                <input type="password" class="form-control" id="passwordInput" placeholder="Enter Password" required>
+                                <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
                             </div>
                             <div class="form-group">
                                 <label for="lblPasswordInput2">Confirm Password</label>
-                                <input type="password" class="form-control" id="passwordInput2" placeholder="Confirm Password"required>
+                                <input type="password" class="form-control" name="password2" placeholder="Confirm Password"required>
                             </div>
-                            <div class="dropdown show">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Select a role for user
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                  <a class="dropdown-item" href="#">Administrator</a>
-                                  <a class="dropdown-item" href="#">Customer</a>
-                                  <a class="dropdown-item" href="#">Agent</a>
-                                </div>
-                            </div>
+                            <p style="font-family:verdana">
+                              <SELECT style="font-family:verdana" name="input_role">
+                                <OPTION value="Administrator">Administrator</OPTION>
+                                <OPTION value="Customer">Customer</OPTION>
+                                <OPTION value="Agent">Agent</OPTION>
+                              </SELECT>
+                            </p>
                             <br>
                             <button type="button" class="btn btn-primary btn-lg">Submit</button>
                         </form>
                     </div>
-        
+
                     <!-- User Modification-->
                     <div role="tabpanel" class="tab-pane fade" id="modify">
-                        <form>
                             <nav class="navbar navbar-light bg-light">
                                 <div class="container-fluid">
                                   <a class="navbar-brand">Search for Username</a>
-                                  <form class="d-flex">
-                                    <input class="form-control me-2" type="search" placeholder="Enter username" aria-label="Search">
+                                  <form class="d-flex" action="/find_user" method="POST">
+                                    <br>
+                                    <input name="user_name" class="form-control me-2" type="search" placeholder="Enter username" aria-label="Search">
                                     <button class="btn btn-outline-success" type="submit">Search</button>
                                   </form>
                                 </div>
                               </nav>
                             <br>
-                            <div class="form-group">
-                              <label for="lblName2">Name:</label>
-                              <input type="text" class="form-control" id="nameInput2" placeholder="John Company" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lblPasswordInput3">Password</label>
-                                <input type="password" class="form-control" id="passwordInput3" placeholder="Enter Password" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lblPasswordInput4">Password</label>
-                                <input type="password" class="form-control" id="passwordInput4" placeholder="Confirm Password" required>
-                            </div>
-                            <div class="dropdown show">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Select a role for user
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                  <a class="dropdown-item" href="#">Administrator</a>
-                                  <a class="dropdown-item" href="#">Customer</a>
-                                  <a class="dropdown-item" href="#">Agent</a>
+                            {% if confirmed %}
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>User modified correctly</strong>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                            {% endif %}
+                            {% if not found %}
+                              {% if found == 0%}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                  <strong>User was </strong> not found <strong>, try again</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                            </div>
+                              {% endif %}
+                            
+                              {% if password_confirm == 0 %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                  <strong>Password </strong> MUST MATCH <strong>, try again</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                              {% endif %}
+                              <!-- <div class="form-group">
+                                <label for="lblName2">Name:</label>
+                                <input type="text" class="form-control" id="nameInput2" placeholder="John Company" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="lblPasswordInput3">Password</label>
+                                <input type="text" class="form-control" id="passwordInput3" placeholder="Enter Password" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="lblPasswordInput4">Confirm Password</label>
+                                <input type="text" class="form-control" id="passwordInput4" placeholder="Confirm Password" required>
+                              </div>
+                              <p style="font-family:verdana">
+                                <SELECT style="font-family:verdana" name="input_role">
+                                  <OPTION value="Administrator">Administrator</OPTION>
+                                  <OPTION value="Customer">Customer</OPTION>
+                                  <OPTION value="Agent">Agent</OPTION>
+                                </SELECT>
+                              </p>
                             <br>
-                            <button type="button" class="btn btn-primary btn-lg">Submit</button>
-                        </form>
+                            <button type="submit" class="btn btn-primary btn-lg">Submit</button> -->
+                          {% else %}
+                              {% if not confirmed %}
+                              <form action="/update_user" method="post">
+                                <div class="form-group">
+                                  <label for="lblName2">Name:</label>
+                                  <input name="user" type="text" class="form-control" id="nameInput2" value="{{data[0][1]}}" readonly>
+                                </div>
+                                <div class="form-group">
+                                  <label for="lblPasswordInput3">Password</label>
+                                  <input name="password" type="password" class="form-control" id="passwordInput3" value="{{data[0][3]}}" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="lblPasswordInput4">Confirm Password</label>
+                                  <input name="password_confirm" type="password" class="form-control" id="passwordInput4" value="{{data[0][3]}}" required>
+                                </div>
+                                <p style="font-family:verdana">
+                                  <SELECT style="font-family:verdana" name="input_role">
+                                    <OPTION value="1">Administrator</OPTION>
+                                    <OPTION value="2">Customer</OPTION>
+                                    <OPTION value="3">Agent</OPTION>
+                                  </SELECT>
+                                </p>
+                                <br>
+                                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                              </form>
+                              {% else %}
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>User was updated successfuly</strong>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                                <form action="/update_user" method="post">
+                                  <div class="form-group">
+                                    <label for="lblName2">Name:</label>
+                                    <input name="user" type="text" class="form-control" id="nameInput2" value="{{data[0][1]}}" readonly>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="lblPasswordInput3">Password</label>
+                                    <input name="password" type="password" class="form-control" id="passwordInput3" value="{{data[0][3]}}" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="lblPasswordInput4">Confirm Password</label>
+                                    <input name="password_confirm" type="password" class="form-control" id="passwordInput4" value="{{data[0][3]}}" required>
+                                  </div>
+                                  <p style="font-family:verdana">
+                                    <SELECT style="font-family:verdana" name="input_role">
+                                      <OPTION value="1">Administrator</OPTION>
+                                      <OPTION value="2">Customer</OPTION>
+                                      <OPTION value="3">Agent</OPTION>
+                                    </SELECT>
+                                  </p>
+                                  <br>
+                                  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>USER </strong> was <strong>, updated</strong>
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                </form>
+                              {% endif %}
+                          {% endif %}
                     </div>
         
                     <!--Delete User-->
                     <div role="tabpanel" class="tab-pane fade" id="delete">
-                        <form method="POST" action="{{ url_for('delete_user') }}">
+                        <form method="POST" action="{{ url_for('find_user') }}">
                             <nav class="navbar navbar-light bg-light">
                                 <div class="container-fluid">
                                   <a class="navbar-brand">Search for Username</a>
@@ -151,6 +252,14 @@
                                   </button>
                               </div>
                             {% endif %}
+                            {% if deleted == 1 %}
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>User: <strong>{{user_name}}</strong> was </strong> DELETED <strong>, successfuly</strong>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                            {% endif %}
                         </form>
                             <br>
                               <div class="form-group">
@@ -165,6 +274,7 @@
                                 <button type="submit" class="btn btn-primary">Delete</button>
                                 </form>
                               </div>
+                    </div>
                 </div>
               </div>
             </div>

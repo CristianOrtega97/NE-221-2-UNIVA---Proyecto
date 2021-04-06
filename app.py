@@ -26,23 +26,53 @@ def customer():
 def administrator():
     return render_template('administrator.html')
 
-@app.route('/delete_user',methods=['GET','POST'])
-def delete_user():
+@app.route('/find_user',methods=['GET','POST'])
+def find_user():
     if request.method == 'POST':
         user_name = request.form['user_name']
         my_cursor = mysql.connection.cursor()
-        my_cursor.execute("SELECT * FROM user_view WHERE user_name = '" + user_name + "'")
+        query = "SELECT * FROM user_view WHERE user_name = '" + str(user_name) + "'"
+        print("query: "+query)
+        my_cursor.execute("SELECT * FROM user_view WHERE user_name = '" + str(user_name) + "'")
         data = my_cursor.fetchall()
         my_cursor.close()
+        print("DATA 4: " + str(data[0][4]))
+        print("DATA: " + str(data))
         if len(data) > 0:
             #User exists
-            user_name = data[0][2]
-            found = 1
-            return render_template('/administrator.html',found = found, user_name = user_name)
+            if data[0][5] == 1:
+                user_name = data[0][2]
+                found = 1
+                return render_template('/administrator.html',found = found, user_name = user_name,data=data)
+            else:
+                user_name = data[0][2]
+                found = 0
+                return render_template('/administrator.html',found = found, user_name = user_name,data=data)
         else:
             #User doesn't exist
             found = 0
             return render_template('/administrator.html',found = found)
+
+@app.route('/update_user',methods=['POST'])
+def update_user():
+    if request.method == 'POST':
+        user = request.values.get('user')
+        password = request.values.get('password')
+        password_confirm = request.values.get('password_confirm')
+        input_role = request.values.get('input_role')
+        if password != password_confirm:
+            password_confirm = 0
+            return render_template('administrator.html', data = data, password_confirm = password_confirm)
+        else:
+            my_cursor = mysql.connection.cursor()
+            print("INFO: "+user)
+            query = "UPDATE user SET `password` = '" + str(password) +"', `role`= " + str(input_role) + " WHERE name = '" + user + "'"
+            print("query: " + query)
+            my_cursor.execute(query)
+            my_cursor.connection.commit()
+            my_cursor.close()
+            confirmed = 1
+            return render_template('administrator.html',confirmed = confirmed)
 
 @app.route('/delete_db',methods=['GET','POST'])
 def delete_db():
@@ -50,14 +80,27 @@ def delete_db():
         user_name = request.values.get('user_name')
         my_cursor = mysql.connection.cursor()
         my_cursor.execute("UPDATE user SET `is_active` = 0 WHERE user_name = '" + user_name + "'")
-        my_cursor.connection.commit()
+        my_cursor.commit()
         my_cursor.close()
-        return render_template('administrator.html')
+        deleted = 1
+        return render_template('administrator.html',deleted = deleted ,user_name = user_name)
 
 @app.route('/new_user',methods=['POST'])
 def new_user():
-    pass
-
+    user_name = request.values.get('username')
+    name = request.values.get('name')
+    password = request.values.get('password')
+    password_confirm = request.values.get('password2')
+    input_role = request.values.get('input_role')
+    if request.method == 'POST':
+        my_cursor = mysql.connection.cursor()
+        my_cursor.execute("SELECT * FROM user_view WHERE user_name = '" + user_name + "'")
+        data = my_cursor.fetchall()
+        my_cursor.close()
+        if len(data) > 0:
+            pass
+        else:
+            pass
 
 @app.route('/agent', methods=['GET','POST'])
 def agent():
@@ -92,9 +135,9 @@ def read_leads():
     if request.method == 'POST':
         date = request.form['date']
         company_name = request.values.get("company_name") 
-        print("DATE: "+ date)
-        print("COMPANY NAME: "+ company_name)
         my_cursor = mysql.connection.cursor()
+        query = "SELECT * FROM lead_view WHERE date = '" + str(date) + "' AND company_name = '" +str(company_name)+"'"
+        print("QUERY: " + query)
         my_cursor.execute("SELECT * FROM lead_view WHERE date = '" + str(date) + "'AND company_name = '" +str(company_name)+"'")
         data = my_cursor.fetchall()
         my_cursor.close()
