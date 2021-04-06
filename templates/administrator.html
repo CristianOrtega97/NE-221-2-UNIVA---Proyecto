@@ -55,25 +55,25 @@
                     <!--User Creation-->
                     <div role="tabpanel" class="tab-pane fade" id="creation">
                       <br>
-                        <form class="/new_user" method="POST">
-                            {% if create == 1%}
-                              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>User was deleted previously, it's now active</strong>
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                              </div>
-                            {% elif create == 2%}
-                              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>User was created successfuly</strong>
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                              </div>
-                            {% endif %}
+                        {% if create == 1%}
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>User was deleted previously, it's now active</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        {% elif create == 2%}
+                          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>User was created successfuly</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        {% endif %}
+                        <form action="/new_user" method="POST">
                             <div class="form-group">
                                 <label for="lblUsername">Username:</label>
-                                <input type="text" class="form-control" name="username" placeholder="Enter the username" required>
+                                <input type="text" class="form-control" name="user_name" placeholder="Enter the username" required>
                             </div>
                             <div class="form-group">
                               <label for="lblName">Name:</label>
@@ -89,13 +89,13 @@
                             </div>
                             <p style="font-family:verdana">
                               <SELECT style="font-family:verdana" name="input_role">
-                                <OPTION value="Administrator">Administrator</OPTION>
-                                <OPTION value="Customer">Customer</OPTION>
-                                <OPTION value="Agent">Agent</OPTION>
+                                <OPTION value="1">Administrator</OPTION>
+                                <OPTION value="2">Customer</OPTION>
+                                <OPTION value="3">Agent</OPTION>
                               </SELECT>
                             </p>
                             <br>
-                            <button type="button" class="btn btn-primary btn-lg">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
 
